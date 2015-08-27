@@ -11,7 +11,7 @@ import os
 
 
 if len(sys.argv)<2:
-    print 'usage: docify.py <swig-generated .py shadow class file>'
+    print('usage: docify.py <swig-generated .py shadow class file>')
     sys.exit(1)
 
 f=open(sys.argv[1],'r')
@@ -56,7 +56,7 @@ data=f.readlines()
 
 # collect all the lines that have public method names.
 pymeths=[]
-for i in xrange (0,len(data)):
+for i in range (0,len(data)):
     #if re.search('^\s*def\s+[^(]*', data[i]) and not re.search('^\s*def __repr__', data[i]) and not re.search('.*__del__.*', data[i]):
     if re.search('^\s*def\s+[^(]*', data[i]) and not re.search('^\s*def __.*', data[i]):
         pymeths.append(data[i])
@@ -81,7 +81,7 @@ for line in pymeths:
 
 # delete "_doc = _pcap" lines from global scope
 # (they get moved in slightly different form to inside __init__ method).
-for i in xrange(0,len(data)):
+for i in range(0,len(data)):
     # write out everything that is NOT a "_doc = _pcap" line.
     if not re.search('^[^ ]+_doc = _pcap.[^ ]+_doc$',data[i]):
         outfile.write(data[i])
@@ -99,12 +99,12 @@ for i in xrange(0,len(data)):
 # put doc assignments inside of the __init__
 outfile.write('        import sys\n')
 outfile.write('        if int(sys.version[0])>=\'2\':\n')
-for method, fname in methods.items():
+for method, fname in list(methods.items()):
     outfile.write('            self.%s.im_func.__doc__ = %s.__doc__\n' % (method, fname))
 
 
 # spit out rest of file verbatim
-for i in xrange (i,len(data)):
+for i in range (i,len(data)):
     outfile.write(data[i])
 
 outfile.close()

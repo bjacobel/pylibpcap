@@ -59,7 +59,7 @@ class pcapclean(clean):
         #if self.all:
         for derived in self.other_derived:
             if os.access(derived, os.F_OK):
-                print derived
+                print(derived)
                 self.announce('removing: %s' % derived)
                 if not self.dry_run:
                     os.unlink(derived)
@@ -134,7 +134,7 @@ class pcap_build_ext(build_ext):
     # swig_sources ()
 
     def find_swig(self):
-        if os.environ.has_key('SWIG'):
+        if 'SWIG' in os.environ:
             return os.environ['SWIG']
         return build_ext.find_swig(self)
 #
@@ -143,12 +143,12 @@ class build_shadowed (distutils.command.build.build):
     # this moves the 'build_py' subcommand to the end, so it happens
     # after the pcap.py module has been created by the build_ext command
     sub_commands = distutils.command.build.build.sub_commands
-    sub_commands  = filter(lambda x: x[0] != 'build_py', sub_commands) + \
-                    filter(lambda x: x[0] == 'build_py', sub_commands)
+    sub_commands  = [x for x in sub_commands if x[0] != 'build_py'] + \
+                    [x for x in sub_commands if x[0] == 'build_py']
 
 
 defines = [ ('SWIG_COBJECT_TYPES', None) ] + \
-          map(lambda x: (x, None), config_defines)
+          [(x, None) for x in config_defines]
 
 if libpcap_dir is None:
     pcap_extension = Extension("_pcapmodule",

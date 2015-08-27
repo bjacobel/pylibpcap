@@ -31,7 +31,7 @@ def _swig_getattr(self,class_type,name):
     if (name == "thisown"): return self.this.own()
     method = class_type.__swig_getmethods__.get(name,None)
     if method: return method(self)
-    raise AttributeError,name
+    raise AttributeError(name)
 
 def _swig_repr(self):
     try: strthis = "proxy of " + self.this.__repr__()
@@ -40,7 +40,7 @@ def _swig_repr(self):
 
 import types
 try:
-    _object = types.ObjectType
+    _object = object
     _newclass = 1
 except AttributeError:
     class _object : pass
@@ -49,7 +49,7 @@ del types
 
 
 __doc__ = _pcap.__doc__
-for dltname, dltvalue in _pcap.DLT.items():
+for dltname, dltvalue in list(_pcap.DLT.items()):
   globals()[dltname] = dltvalue
 del dltname, dltvalue
 
@@ -63,24 +63,24 @@ class pcapObject(_object):
     def __init__(self, *args): 
         import sys
         if int(sys.version[0])>='2':
-            self.datalink.im_func.__doc__ = _pcap.pcapObject_datalink.__doc__
-            self.fileno.im_func.__doc__ = _pcap.pcapObject_fileno.__doc__
-            self.datalinks.im_func.__doc__ = _pcap.pcapObject_datalinks.__doc__
-            self.major_version.im_func.__doc__ = _pcap.pcapObject_major_version.__doc__
-            self.minor_version.im_func.__doc__ = _pcap.pcapObject_minor_version.__doc__
-            self.getnonblock.im_func.__doc__ = _pcap.pcapObject_getnonblock.__doc__
-            self.open_live.im_func.__doc__ = _pcap.pcapObject_open_live.__doc__
-            self.dispatch.im_func.__doc__ = _pcap.pcapObject_dispatch.__doc__
-            self.setnonblock.im_func.__doc__ = _pcap.pcapObject_setnonblock.__doc__
-            self.stats.im_func.__doc__ = _pcap.pcapObject_stats.__doc__
-            self.is_swapped.im_func.__doc__ = _pcap.pcapObject_is_swapped.__doc__
-            self.open_dead.im_func.__doc__ = _pcap.pcapObject_open_dead.__doc__
-            self.dump_open.im_func.__doc__ = _pcap.pcapObject_dump_open.__doc__
-            self.next.im_func.__doc__ = _pcap.pcapObject_next.__doc__
-            self.open_offline.im_func.__doc__ = _pcap.pcapObject_open_offline.__doc__
-            self.snapshot.im_func.__doc__ = _pcap.pcapObject_snapshot.__doc__
-            self.loop.im_func.__doc__ = _pcap.pcapObject_loop.__doc__
-            self.setfilter.im_func.__doc__ = _pcap.pcapObject_setfilter.__doc__
+            self.datalink.__func__.__doc__ = _pcap.pcapObject_datalink.__doc__
+            self.fileno.__func__.__doc__ = _pcap.pcapObject_fileno.__doc__
+            self.datalinks.__func__.__doc__ = _pcap.pcapObject_datalinks.__doc__
+            self.major_version.__func__.__doc__ = _pcap.pcapObject_major_version.__doc__
+            self.minor_version.__func__.__doc__ = _pcap.pcapObject_minor_version.__doc__
+            self.getnonblock.__func__.__doc__ = _pcap.pcapObject_getnonblock.__doc__
+            self.open_live.__func__.__doc__ = _pcap.pcapObject_open_live.__doc__
+            self.dispatch.__func__.__doc__ = _pcap.pcapObject_dispatch.__doc__
+            self.setnonblock.__func__.__doc__ = _pcap.pcapObject_setnonblock.__doc__
+            self.stats.__func__.__doc__ = _pcap.pcapObject_stats.__doc__
+            self.is_swapped.__func__.__doc__ = _pcap.pcapObject_is_swapped.__doc__
+            self.open_dead.__func__.__doc__ = _pcap.pcapObject_open_dead.__doc__
+            self.dump_open.__func__.__doc__ = _pcap.pcapObject_dump_open.__doc__
+            self.next.__func__.__doc__ = _pcap.pcapObject_next.__doc__
+            self.open_offline.__func__.__doc__ = _pcap.pcapObject_open_offline.__doc__
+            self.snapshot.__func__.__doc__ = _pcap.pcapObject_snapshot.__doc__
+            self.loop.__func__.__doc__ = _pcap.pcapObject_loop.__doc__
+            self.setfilter.__func__.__doc__ = _pcap.pcapObject_setfilter.__doc__
         this = _pcap.new_pcapObject(*args)
         try: self.this.append(this)
         except: self.this = this

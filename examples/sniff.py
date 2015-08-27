@@ -38,10 +38,10 @@ def decode_ip_packet(s):
 
 
 def dumphex(s):
-    bytes = map(lambda x: '%.2x' % x, map(ord, s))
-    for i in xrange(0,len(bytes)/16):
-        print '        %s' % string.join(bytes[i*16:(i+1)*16],' ')
-    print '        %s' % string.join(bytes[(i+1)*16:],' ')
+    bytes = ['%.2x' % x for x in list(map(ord, s))]
+    for i in range(0,len(bytes)/16):
+        print('        %s' % string.join(bytes[i*16:(i+1)*16],' '))
+    print('        %s' % string.join(bytes[(i+1)*16:],' '))
         
 
 def print_packet(pktlen, data, timestamp):
@@ -50,24 +50,24 @@ def print_packet(pktlen, data, timestamp):
 
     if data[12:14]=='\x08\x00':
         decoded=decode_ip_packet(data[14:])
-        print '\n%s.%f %s > %s' % (time.strftime('%H:%M',
+        print('\n%s.%f %s > %s' % (time.strftime('%H:%M',
                                 time.localtime(timestamp)),
                                 timestamp % 60,
                                 decoded['source_address'],
-                                decoded['destination_address'])
+                                decoded['destination_address']))
         for key in ['version', 'header_len', 'tos', 'total_len', 'id',
                                 'flags', 'fragment_offset', 'ttl']:
-            print '    %s: %d' % (key, decoded[key])
-        print '    protocol: %s' % protocols[decoded['protocol']]
-        print '    header checksum: %d' % decoded['checksum']
-        print '    data:'
+            print('    %s: %d' % (key, decoded[key]))
+        print('    protocol: %s' % protocols[decoded['protocol']])
+        print('    header checksum: %d' % decoded['checksum'])
+        print('    data:')
         dumphex(decoded['data'])
  
 
 if __name__=='__main__':
 
     if len(sys.argv) < 3:
-        print 'usage: sniff.py <interface> <expr>'
+        print('usage: sniff.py <interface> <expr>')
         sys.exit(0)
     p = pcap.pcapObject()
     #dev = pcap.lookupdev()
@@ -97,9 +97,9 @@ if __name__=='__main__':
         # p.next() returns a (pktlen, data, timestamp) tuple 
         #    apply(print_packet,p.next())
     except KeyboardInterrupt:
-        print '%s' % sys.exc_type
-        print 'shutting down'
-        print '%d packets received, %d packets dropped, %d packets dropped by interface' % p.stats()
+        print('%s' % sys.exc_info()[0])
+        print('shutting down')
+        print('%d packets received, %d packets dropped, %d packets dropped by interface' % p.stats())
     
 
 
